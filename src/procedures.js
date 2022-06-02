@@ -176,7 +176,19 @@ exports.openDevToolsAndTurnOnResponsiveMode = async () => {
             }
 
         } catch (error) {
-            console.error('Inside helper function:', error);
+            console.error('Responsive mode is probably on:', error);
+
+             // Click on dimensions drop dow, whatever the current value
+             let loc = await screen.waitFor(imageResource('dimensions.png'), 5000, 1000);
+             await moveMouseToCenterOfRegionAndLeftClick(loc);
+             if (loc) {
+                 console.log("Dimensions dropdown found")
+ 
+                 // Click on iphone 5SE
+                 loc = await screen.waitFor(imageResource('iphone-5SE.png'), 5000, 1000);
+                 await moveMouseToCenterOfRegionAndLeftClick(loc);
+                 console.log("Iphone 5SE dimensions found")
+             }
         }
     }
 
