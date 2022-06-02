@@ -31,10 +31,10 @@ A:
 
 cd "A:/A_SOURCE/Local/Web Dev/R HEMI/Web_project_setup_node"
 
-if %PROJECT%==1 node index.js cause
-if %PROJECT%==2 node index.js adkasa
-if %PROJECT%==3 node index.js polymorph
-if %PROJECT%==4 node index.js mzpem
+if %PROJECT%==1 node src/index.js cause
+if %PROJECT%==2 node src/index.js adkasa
+if %PROJECT%==3 node src/index.js polymorph
+if %PROJECT%==4 node src/index.js mzpem
 
 echo.
-@REM pause
+pause
