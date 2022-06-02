@@ -9,21 +9,23 @@ exports.switchDesktop = ({ left = false, right = false }) => {
 }
 
 exports.checkIfAppIsOpen = async (appNames = []) => {
+    let isOpen = false;
     const time_start = Date.now();
     const timeout = 15000; // Stop operation after 15 seconds
 
     while (true) {
         const windowRef = await getActiveWindow();
         const [title, region] = await Promise.all([windowRef.title, windowRef.region]);
-        console.log(title);
+        // console.log(title);
         for (const name of appNames) {
-            if (title.toLocaleLowerCase().includes(name)) {
+            if (title.toLocaleLowerCase().includes(name.toLocaleLowerCase())) {
+                isOpen = true;
                 return true;
             }
+            if ((appNames.indexOf(name) === appNames.length - 1) && !isOpen) return false;
         }
         await sleep(1000);
         const time_stop = Date.now();
         if ((time_stop - time_start) * 1000 > timeout) break;
     }
-    return false;
 }

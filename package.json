@@ -6,6 +6,7 @@
   "dependencies": {
     "@nut-tree/nut-js": "^2.1.1",
     "@nut-tree/template-matcher": "^1.0.1",
+    "dotenv": "^16.0.1",
     "node-notifier": "^10.0.1"
   }
 }
