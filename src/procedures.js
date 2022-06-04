@@ -200,11 +200,15 @@ exports.openDevToolsAndTurnOnResponsiveMode = async () => {
     } else {
         console.log("Dev tools is docked");
         try {
-            loc = await screen.waitFor(imageResource('dev-tools-controls.png'), 5000, 1000);
+            console.log("Finding dev controls...")
+            let loc = await screen.waitFor(imageResource('dev-tools-controls.png'), 5000, 1000);
             if (loc) {
+                console.log("Found dev controls...")
                 await moveMouseToCenterOfRegionAndLeftClick(loc);
+                console.log("Finding undock icon...")
                 loc = await screen.waitFor(imageResource('undock-icon.png'), 5000, 1000);
                 if (loc) {
+                    console.log("Found undock icon...")
                     await moveMouseToCenterOfRegionAndLeftClick(loc);
                     console.log("Dev tools undocked");
                     await checkForResponsiveModeHelper();
