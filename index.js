@@ -60,10 +60,7 @@ keyboard.config.autoDelayMs = 50;
     // Step 13: Type localhost:3000 in address bar and press Enter
     await typeLocalHostInAddressBar();
 
-
-
-
-
+    // Notifier user and End
     notifier.notify({
         title: "Web Projects Setup script",
         message: `Setup complete, you're good to go with project: ${project_chosen}`,

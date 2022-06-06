@@ -126,7 +126,7 @@ exports.locateIntersectionOfChromeAndVSCode = async () => {
 
 exports.openVSCodeTerminal = async () => {
     await sleep(1000);
-    await keyboard.type(Key.LeftControl, Key.Grave);
+    await keyboard.type(Key.LeftControl, Key.LeftShift, Key.Grave); // adding Shift to make sure its a new cmd prompt and not powershell
     await sleep(1000);
     await keyboard.type("yarn start");
     await sleep(500);
@@ -207,7 +207,7 @@ exports.openDevToolsAndTurnOnResponsiveMode = async () => {
                 console.log("Found dev controls...")
                 await moveMouseToCenterOfRegionAndLeftClick(loc);
                 console.log("Finding undock icon...")
-                loc = await screen.waitFor(imageResource('undock-icon.png'), 5000, 1000);
+                loc = await screen.waitFor(imageResource('undock-icon.png'), 10_000, 1000);
                 if (loc) {
                     console.log("Found undock icon...")
                     await moveMouseToCenterOfRegionAndLeftClick(loc);
@@ -230,4 +230,5 @@ exports.typeLocalHostInAddressBar = async () => {
     await keyboard.type('localhost:3000');
     await sleep(500);
     await keyboard.type(Key.Enter);
+    await sleep(3000);
 }
