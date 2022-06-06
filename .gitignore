@@ -128,3 +128,5 @@ dist
 
 # personal stuff
 test.js
+*.lnk
+setup_web_project.bat

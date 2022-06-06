@@ -1,10 +1,10 @@
-const { mouse, up, down, left, right, Point, straightTo, screen, imageResource, sleep, getActiveWindow, keyboard, Key, centerOf, Button } = require('@nut-tree/nut-js');
+const { screen, sleep, keyboard, Key } = require('@nut-tree/nut-js');
 require('@nut-tree/template-matcher'); // for image search functionality
 const notifier = require('node-notifier');
 require('dotenv').config();
 const path = require('path');
-const { switchToSecondDesktop, openGithubDesktop, openProjectFolder, openVSCodeInProjectFolder, openChromeAndMaximize, snapCurrentWindowToLeft, locateIntersectionOfChromeAndVSCode, openVSCodeTerminal, openDevToolsAndTurnOnResponsiveMode } = require('./procedures');
-const { project_chosen } = require('./utils/helpers');
+const { openGithubDesktop, openProjectFolder, openVSCodeInProjectFolder, openChromeAndMaximize, snapCurrentWindowToLeft, locateIntersectionOfChromeAndVSCode, openVSCodeTerminal, openDevToolsAndTurnOnResponsiveMode, switchToNextDesktop, typeLocalHostInAddressBar } = require('./procedures');
+const { project_chosen } = require('./helpers');
 
 
 
@@ -19,7 +19,7 @@ keyboard.config.autoDelayMs = 50;
     // Step 1: Script starts in desktop 1, so switch to desktop 2
     // It seems it can't highlight stuff on the desktops screen when it presses win + tab
     // assume we are on first desktop and just move to second desktop
-    await switchToSecondDesktop();
+    await switchToNextDesktop();
 
     // Step 2: Open Github Desktop
     await openGithubDesktop();
@@ -46,11 +46,21 @@ keyboard.config.autoDelayMs = 50;
 
     // Step 9: Open VSCode terminal and type yarn start
     //todo: Add check later to keep trying shortcut if terminal doesn't open
-   await openVSCodeTerminal();
+    await openVSCodeTerminal();
 
     // Step 10: Wait for project to start, open Dev Tools and turn on responsive mode
     await openDevToolsAndTurnOnResponsiveMode();
-    
+
+    // Step 11: Switch to desktop 3
+    await switchToNextDesktop();
+
+    // Step 12: Open Chrome and maximize
+    await openChromeAndMaximize();
+
+    // Step 13: Type localhost:3000 in address bar and press Enter
+    await typeLocalHostInAddressBar();
+
+
 
 
 

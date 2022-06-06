@@ -1,11 +1,11 @@
-const { mouse, Point, straightTo, screen, imageResource, sleep, getActiveWindow, keyboard, Key, centerOf, Button, right, left } = require('@nut-tree/nut-js');
-const { checkIfAppIsOpen, switchDesktop, moveMouseToCenterOfRegionAndLeftClick, project_chosen } = require('./utils/helpers');
+const { mouse, straightTo, screen, imageResource, sleep, keyboard, Key, centerOf, right, left } = require('@nut-tree/nut-js');
+const { checkIfAppIsOpen, switchDesktop, moveMouseToCenterOfRegionAndLeftClick, project_chosen } = require('./helpers');
 require('@nut-tree/template-matcher'); // for image search functionality
 
 
 //todo: Return status of all operations
 
-exports.switchToSecondDesktop = async () => {
+exports.switchToNextDesktop = async () => {
     await sleep(1000);
     switchDesktop({ right: true });
 }
@@ -71,20 +71,20 @@ exports.openProjectFolder = async () => {
 
 
 exports.openVSCodeInProjectFolder = async () => {
-    await sleep(1000);
+    await sleep(2000);
     await keyboard.type(Key.LeftShift, Key.F10);
     await sleep(1000);
     await keyboard.type(Key.I);
 
     // Check if VSCode is open
-    await sleep(1000);
+    await sleep(2000);
     if (await checkIfAppIsOpen(['visual', 'studio', 'code']) === true) console.log("VSCode opened successfully");
     else console.error("There was a problem opening VSCode");
 }
 
 
 exports.openChromeAndMaximize = async () => {
-    await sleep(1000);
+    await sleep(2000);
     await keyboard.type(Key.LeftSuper);
     await sleep(1000);
     await keyboard.type('chrome');
@@ -97,7 +97,7 @@ exports.openChromeAndMaximize = async () => {
     else console.error("There was a problem opening Google Chrome");
 
     // Maximize chrome
-    await sleep(2000);
+    await sleep(3000);
     await keyboard.type(Key.LeftSuper, Key.Up);
     await sleep(1000);
     await keyboard.type(Key.LeftSuper, Key.Up); // twice to ensure it's maximized no matter what size it already is
@@ -105,7 +105,7 @@ exports.openChromeAndMaximize = async () => {
 
 
 exports.snapCurrentWindowToLeft = async () => {
-    await sleep(1000);
+    await sleep(3000);
     await keyboard.type(Key.LeftSuper, Key.Left);
     await sleep(1000);
     await keyboard.type(Key.LeftSuper, Key.Left);
@@ -114,7 +114,7 @@ exports.snapCurrentWindowToLeft = async () => {
 
 exports.locateIntersectionOfChromeAndVSCode = async () => {
     try {
-        const location = await screen.waitFor(imageResource('chrome-vscode-intersection.png'), 10000, 1000);
+        const location = await screen.waitFor(imageResource('chrome-vscode-intersection.png'), 60_000, 2000);
         await mouse.move(straightTo(centerOf(location)));
         await mouse.move(right(3));
         await mouse.drag(left(550));
@@ -139,6 +139,7 @@ exports.openDevToolsAndTurnOnResponsiveMode = async () => {
     try {
         const location = await screen.waitFor(imageResource('chrome-localhost.png'), 300_000, 3000);
         if (location) await mouse.move(straightTo(centerOf(location)));
+        await mouse.leftClick(); // to make sure chrome is active before using shortcut to open dev tools
         // const windowRef = await getActiveWindow();
         // const title = await windowRef.title;
         // console.log("Current active window:", title)
@@ -178,17 +179,17 @@ exports.openDevToolsAndTurnOnResponsiveMode = async () => {
         } catch (error) {
             console.error('Responsive mode is probably on:', error);
 
-             // Click on dimensions drop dow, whatever the current value
-             let loc = await screen.waitFor(imageResource('dimensions.png'), 5000, 1000);
-             await moveMouseToCenterOfRegionAndLeftClick(loc);
-             if (loc) {
-                 console.log("Dimensions dropdown found")
- 
-                 // Click on iphone 5SE
-                 loc = await screen.waitFor(imageResource('iphone-5SE.png'), 5000, 1000);
-                 await moveMouseToCenterOfRegionAndLeftClick(loc);
-                 console.log("Iphone 5SE dimensions found")
-             }
+            // Click on dimensions drop dow, whatever the current value
+            let loc = await screen.waitFor(imageResource('dimensions.png'), 5000, 1000);
+            await moveMouseToCenterOfRegionAndLeftClick(loc);
+            if (loc) {
+                console.log("Dimensions dropdown found")
+
+                // Click on iphone 5SE
+                loc = await screen.waitFor(imageResource('iphone-5SE.png'), 5000, 1000);
+                await moveMouseToCenterOfRegionAndLeftClick(loc);
+                console.log("Iphone 5SE dimensions found")
+            }
         }
     }
 
@@ -219,4 +220,14 @@ exports.openDevToolsAndTurnOnResponsiveMode = async () => {
             console.error(error);
         }
     }
+}
+
+
+exports.typeLocalHostInAddressBar = async () => {
+    await sleep(1000);
+    await keyboard.type(Key.LeftControl, Key.L); // to put focus on address bar
+    await sleep(1000);
+    await keyboard.type('localhost:3000');
+    await sleep(500);
+    await keyboard.type(Key.Enter);
 }
