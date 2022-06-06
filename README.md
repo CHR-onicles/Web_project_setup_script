@@ -12,7 +12,7 @@ The script is launched with a `.bat` file in the root directory (if you want to 
 ## Demo
 
 <div align="center">
-      <a href="https://youtu.be/yClD1_ZuqdU" target="_blank">
+      <a href="https://youtu.be/yClD1_ZuqdU">
      <img 
       src="./assets/thumbnail.jpg" 
       alt="Web project workflow automation demo" 
