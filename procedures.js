@@ -114,7 +114,7 @@ exports.snapCurrentWindowToLeft = async () => {
 
 exports.locateIntersectionOfChromeAndVSCode = async () => {
     try {
-        const location = await screen.waitFor(imageResource('chrome-vscode-intersection.png'), 60_000, 2000);
+        const location = await screen.waitFor(imageResource('chrome-vscode-intersection.png'), 120_000, 2000);
         await mouse.move(straightTo(centerOf(location)));
         await mouse.move(right(3));
         await mouse.drag(left(550));
@@ -137,7 +137,7 @@ exports.openVSCodeTerminal = async () => {
 exports.openDevToolsAndTurnOnResponsiveMode = async () => {
     await sleep(10000);
     try {
-        const location = await screen.waitFor(imageResource('chrome-localhost.png'), 300_000, 3000);
+        const location = await screen.waitFor(imageResource('chrome-localhost.png'), 360_000, 3000);
         if (location) await mouse.move(straightTo(centerOf(location)));
         await mouse.leftClick(); // to make sure chrome is active before using shortcut to open dev tools
         // const windowRef = await getActiveWindow();
@@ -155,7 +155,7 @@ exports.openDevToolsAndTurnOnResponsiveMode = async () => {
     const checkForResponsiveModeHelper = async () => {
         await sleep(1000);
         try {
-            let location = await screen.waitFor(imageResource('toggle-responsive-mode-off.png'), 5000, 1000);
+            let location = await screen.waitFor(imageResource('toggle-responsive-mode-off.png'), 10_000, 1000);
             if (location) {
                 // Turn on responsive mode, if not in it already
                 await sleep(1000);
@@ -165,13 +165,13 @@ exports.openDevToolsAndTurnOnResponsiveMode = async () => {
             }
             console.log("Checking for dimensions dropdown...")
             // Click on dimensions drop dow, whatever the current value
-            location = await screen.waitFor(imageResource('dimensions.png'), 5000, 1000);
+            location = await screen.waitFor(imageResource('dimensions.png'), 10_000, 1000);
             await moveMouseToCenterOfRegionAndLeftClick(location);
             if (location) {
                 console.log("Dimensions dropdown found")
 
                 // Click on iphone 5SE
-                location = await screen.waitFor(imageResource('iphone-5SE.png'), 5000, 1000);
+                location = await screen.waitFor(imageResource('iphone-5SE.png'), 10_000, 1000);
                 await moveMouseToCenterOfRegionAndLeftClick(location);
                 console.log("Iphone 5SE dimensions found")
             }
@@ -180,13 +180,13 @@ exports.openDevToolsAndTurnOnResponsiveMode = async () => {
             console.error('Responsive mode is probably on:', error);
 
             // Click on dimensions drop dow, whatever the current value
-            let loc = await screen.waitFor(imageResource('dimensions.png'), 5000, 1000);
+            let loc = await screen.waitFor(imageResource('dimensions.png'), 10_000, 1000);
             await moveMouseToCenterOfRegionAndLeftClick(loc);
             if (loc) {
                 console.log("Dimensions dropdown found")
 
                 // Click on iphone 5SE
-                loc = await screen.waitFor(imageResource('iphone-5SE.png'), 5000, 1000);
+                loc = await screen.waitFor(imageResource('iphone-5SE.png'), 10_000, 1000);
                 await moveMouseToCenterOfRegionAndLeftClick(loc);
                 console.log("Iphone 5SE dimensions found")
             }
@@ -202,7 +202,7 @@ exports.openDevToolsAndTurnOnResponsiveMode = async () => {
         console.log("Dev tools is docked");
         try {
             console.log("Finding dev controls...")
-            let loc = await screen.waitFor(imageResource('dev-tools-controls.png'), 5000, 1000);
+            let loc = await screen.waitFor(imageResource('dev-tools-controls.png'), 10_000, 1000);
             if (loc) {
                 console.log("Found dev controls...")
                 await moveMouseToCenterOfRegionAndLeftClick(loc);
