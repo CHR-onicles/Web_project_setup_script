@@ -64,6 +64,10 @@ exports.openProjectFolder = async () => {
             logHelper(process.env.MZPEM_PATH);
             break;
 
+        case 'portfolio-v1':
+            logHelper(process.env.PORTFOLIO_V1_PATH);
+            break;
+
         default:
             throw new Error("Project chosen is not valid!");
     }
